@@ -1,10 +1,15 @@
+'use client'
 import GridDatos from "@components/GridDatos"
+import {NextUIProvider} from '@nextui-org/react'
+
 
 const Home = () => {
   return (
-    <section className="w-full flex-center flex-col">
-      <GridDatos />
-    </section>
+    <NextUIProvider>
+      <section className="w-full flex-center flex-col">
+        <GridDatos />
+      </section>
+    </NextUIProvider>
   )
 }
 
