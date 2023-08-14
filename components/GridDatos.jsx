@@ -257,13 +257,16 @@ const PedirCajaButton = () => {
     </>
   )
 }
-  
+
+    // Filtrar los datos para determinar si hay al menos un objeto con estado 'pendiente'
+    const hasPendingPayments = cajaState.some(item => item.estado_pago === 'Pendiente');
+      
 
 
   return (
     <div className='p-1 lg:p-[200px] '> 
       <div sx={{ height: 400, width: '100%'}}>
-          <CardComponent datos={cajaState}/>
+        <CardComponent datos={cajaState}/>
         <div className='header-tabla'>
           <h1>Pendientes</h1>
           <div className='button-wrap'>
@@ -271,29 +274,42 @@ const PedirCajaButton = () => {
             <PedirCajaButton titulo="Pedir Caja" />
           </div>
         </div>
-        <DataGrid
-            disableColumnFilter
-            disableColumnMenu={true}
-            rowHeight={35}
-            hideFooter
-            stickyHeader
-            // Probando con Commit de la celda editada
-            // onCellEditCommit={onCellEditCommit}
-            // // Probando row edit mode
-            processRowUpdate={processRowUpdate}
-            onProcessRowUpdateError={handleProcessRowUpdateError}
-            on
-            sx={{marginBottom: "50px",backgroundColor: "white"}}
-            className='mb-5'
-            rows={cajaState} columns={columns}
-            initialState={{
-              filter: {
-                filterModel: {
-                  items: [{ field: 'estado_pago', operator: "is", value: "Pendiente" }],
-                },
-              },
-            }} 
-        />
+        <div>
+          {hasPendingPayments ? (
+          // Si hay pagos pendientes, renderizar el DataTable
+            <>
+            <DataGrid
+                disableColumnFilter
+                disableColumnMenu={true}
+                rowHeight={35}
+                hideFooter
+                stickyHeader
+                // Probando con Commit de la celda editada
+                // onCellEditCommit={onCellEditCommit}
+                // // Probando row edit mode
+                processRowUpdate={processRowUpdate}
+                onProcessRowUpdateError={handleProcessRowUpdateError}
+                on
+                sx={{marginBottom: "50px",backgroundColor: "white"}}
+                className='mb-5'
+                rows={cajaState} columns={columns}
+                initialState={{
+                  filter: {
+                    filterModel: {
+                      items: [{ field: 'estado_pago', operator: "is", value: "Pendiente" }],
+                    },
+                  },
+                }} 
+            />
+            </>
+          ) : (
+            // Si no hay pagos pendientes, mostrar un mensaje
+            <div className=' text-slate-400 border flex justify-center items-center h-[100px]'>
+              <h1>No hay pagos pendientes</h1>
+            </div>
+          )}
+        </div>
+        
 
 
         {/* <h1>Personas con mas o menos de 25 años</h1>
@@ -353,7 +369,7 @@ const columns = [
       headerName: 'Estado',
       type: 'singleSelect',
       valueOptions: ['Pendiente', 'Pagado', 'Rechazado'],
-      width: 150,
+      width: 110,
       cellClassName: 'estadoPagoCell',
       renderCell: (cellValues) => {
         return (
@@ -373,13 +389,13 @@ const columns = [
       headerName: 'Fecha',
       type: 'date',
       typewidth: 180,
-      width: 130, 
+      width: 100, 
       valueFormatter: params => 
       moment(params?.value).format('L'),
       
     },
-    { field: 'obra', headerName: 'Obra',width: 200, editable: true },
-    { field: 'concepto', headerName: 'Concepto', editable: true },
+    { field: 'obra', headerName: 'Obra',width: 150, editable: true },
+    { field: 'concepto',width: 150, headerName: 'Concepto', editable: true },
     { 
       field: 'monto',
       headerName: 'Monto',
