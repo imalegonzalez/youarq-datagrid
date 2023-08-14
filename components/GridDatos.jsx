@@ -273,6 +273,7 @@ const PedirCajaButton = () => {
         </div>
         <DataGrid
             disableColumnFilter
+            disableColumnMenu={true}
             rowHeight={35}
             hideFooter
             stickyHeader
@@ -318,6 +319,7 @@ const PedirCajaButton = () => {
         <h1>Historial</h1>
         <DataGrid 
         rows={cajaState} columns={columns}
+        disableColumnMenu={true}
         rowHeight={35}
         hideFooter
         sx={{marginBottom: "50px",backgroundColor: "white"}}
@@ -382,6 +384,7 @@ const columns = [
       field: 'monto',
       headerName: 'Monto',
       type: 'number',
+      sortable: false,
       valueGetter: (params) => {
         if (!params.value) {
           return "11111";
