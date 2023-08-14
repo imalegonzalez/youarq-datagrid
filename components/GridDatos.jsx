@@ -136,7 +136,7 @@ const GridDatos = () => {
     }, [props.datos]);
   
     return (
-      <div className='cardWrapper'>
+      <div className='cardWrapper flex'>
         <div className ="card card-saldo" >
           <h2 className='h2Card'>Saldo Actual</h2>
           <p>{formatedTotal}</p>
@@ -261,11 +261,9 @@ const PedirCajaButton = () => {
 
 
   return (
-    <div style={{ padding:200 }}> 
-      
-
-        <div style={{ height: "auto", width: '100%' }}>
-        <CardComponent datos={cajaState}/>
+    <div className='p-1 lg:p-[200px] '> 
+      <div sx={{ height: 400, width: '100%'}}>
+          <CardComponent datos={cajaState}/>
         <div className='header-tabla'>
           <h1>Pendientes</h1>
           <div className='button-wrap'>
@@ -277,6 +275,7 @@ const PedirCajaButton = () => {
             disableColumnFilter
             rowHeight={35}
             hideFooter
+            stickyHeader
             // Probando con Commit de la celda editada
             // onCellEditCommit={onCellEditCommit}
             // // Probando row edit mode
@@ -333,9 +332,7 @@ const PedirCajaButton = () => {
           },
         }}
          />
-
-        </div>
-        
+      </div>   
     </div>
   )
 }

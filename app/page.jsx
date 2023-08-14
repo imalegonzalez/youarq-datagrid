@@ -6,7 +6,7 @@ import {NextUIProvider} from '@nextui-org/react'
 const Home = () => {
   return (
     <NextUIProvider>
-      <section className="w-full flex-center flex-col">
+      <section className="lg:w-full lg:flex-center lg:flex-col">
         <GridDatos />
       </section>
     </NextUIProvider>
